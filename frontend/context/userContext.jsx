@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const UserContext = createContext();
 
@@ -25,7 +26,7 @@ export const UserProvider = ({children})=>{
         if (!user || !user._id) return;  // Prevent request if user is not available
         
         try {
-          const response = await axios.get(`http://localhost:4000/api/cart/${user._id}`, {
+          const response = await axios.get(`${BASE_URL}/cart/${user._id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setCart(response.data.products);

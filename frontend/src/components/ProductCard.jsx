@@ -1,6 +1,7 @@
 import { userAuth } from "../../context/userContext";
 import axios from "axios";
 import toast from "react-hot-toast"
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const ProductCard = ({ product }) => {
   const { user, token } = userAuth();
@@ -27,7 +28,7 @@ const ProductCard = ({ product }) => {
       console.log("Payload:", payload);
       console.log("token in product card",token)
       const response = await axios.post(
-        "http://localhost:4000/api/cart/add",
+        `${BASE_URL}/cart/add`,
         payload,
         {
           headers: { 

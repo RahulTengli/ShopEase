@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { userAuth } from '../../context/userContext';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:4000/api/login', { email, password });
+      const res = await axios.post(`${BASE_URL}/login`, { email, password });
       console.log(res.data);
       toast.success("Login Successfull");
 

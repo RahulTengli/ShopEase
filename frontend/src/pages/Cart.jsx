@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { userAuth } from "../../context/userContext";
 import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Cart = () => {
   const { user, token, cart, setCart, fetchCart } = userAuth();
@@ -12,7 +13,7 @@ const Cart = () => {
   const removeFromCart = async (productId) => {
     try {
       await axios.post(
-        "http://localhost:4000/api/cart/remove",
+        `${BASE_URL}/cart/remove`,
         { userId: user._id, productId },
         { headers: { Authorization: `Bearer ${token}` } }
       );
