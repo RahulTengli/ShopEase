@@ -2,9 +2,13 @@ import { userAuth } from "../../context/userContext";
 import axios from "axios";
 import toast from "react-hot-toast"
 const BASE_URL = import.meta.env.VITE_BASE_URL;
+import PopupCard from "./PopupCard";
+import { useState } from "react";
+
 
 const ProductCard = ({ product }) => {
-  const { user, token } = userAuth();
+  const { user, token,fetchCart } = userAuth();
+  const [showPopup, setShowPopup] = useState(false);
 
   const addToCart = async (product) => {
     if (!user) {
@@ -37,6 +41,7 @@ const ProductCard = ({ product }) => {
           },
         }
       );
+      fetchCart();
   
       if (response.status === 200) {
         toast.success("Product added to cart!");
@@ -49,16 +54,29 @@ const ProductCard = ({ product }) => {
   
   
   return (
-    <div className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center">
+    <div className="bg-white shadow-md rounded-lg p-4 flex flex-col items-center " onClick={()=> setShowPopup(true)}>
       <img src={product.image} alt={product.title} className="h-40 object-contain" />
       <h3 className="text-lg font-semibold mt-2 text-center">{product.title}</h3>
       <p className="text-blue-600 font-bold">${product.price}</p>
       <button
         className="mt-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
-        onClick={() => addToCart(product)}
+        onClick={(e) => {
+          e.stopPropagation();
+          addToCart(product);
+        }}
       >
         Add to Cart
       </button>
+
+      {
+        showPopup && (
+          <PopupCard
+            product={product}
+            onClose={ ()=> setShowPopup(false)} 
+            addToCart = {addToCart}
+          />
+        )
+      }
     </div>
   );
 };

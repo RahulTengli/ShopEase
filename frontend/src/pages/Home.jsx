@@ -31,18 +31,18 @@ const Home = () => {
 
   return (
     <div className="p-6">
-      <div className="flex space-x-4 mb-4">
+      <div className="flex flex-col md:flex-row lg:flex-row space-x-4 mb-4 gap-2">
         <input
           type="text"
           placeholder="Search products..."
           className="border px-4 py-2 rounded w-full"
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select className="border px-4 py-2 rounded" onChange={(e) => setSort(e.target.value)}>
+        <select className="border px-4 py-2 rounded w-full" onChange={(e) => setSort(e.target.value)}>
           <option value="asc">Price: Low to High</option>
           <option value="desc">Price: High to Low</option>
         </select>
-        <select className="border px-4 py-2 rounded" onChange={(e) => setCategory(e.target.value)}>
+        <select className="border px-4 py-2 rounded w-full" onChange={(e) => setCategory(e.target.value)}>
           <option value="">All Categories</option>
           <option value="men's clothing">Men's Clothing</option>
           <option value="women's clothing">Women's Clothing</option>
